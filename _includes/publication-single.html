@@ -1,0 +1,81 @@
+{% include base_path %}
+
+<style>
+  .title {
+    margin-bottom: 0.0em;
+  }
+
+  .author {
+    margin-bottom: 0.0em;
+    color: #a0a8b0;
+  }
+
+  .venue {
+    margin-bottom: 0.0em;
+    color: #ffa500;
+    
+  }
+
+  .excerpt {
+    margin-bottom: 0.0em;
+    color: #2d2a2abf;
+  }
+
+  .url {
+    font-size: medium;
+  }
+</style>
+
+<div>
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    <table style="border: none; border-collapse: collapse;" border="0">
+      <colgroup>
+        <col style="width:30%">
+        <col style="width:70%">
+      </colgroup>
+      <tbody>
+        <tr style="border-collapse: separate; border-spacing:30em;">
+          <td style="border-collapse: collapse; border: none;">
+            <img src={{ post.teaser }} alt="">
+          <td style="border-collapse: collapse; border: none;">
+            <h2 class="title">{{ post.title }}</h2>
+            <p class="author">
+              <i class="fa-solid fa-user"></i>
+              {% for author in post.authors %}
+              {% if author.role == "Me" %}
+              <strong>{{ author.name }}</strong>
+              {% else %}
+              {{ author.name }}
+              {% endif %}
+              {% if forloop.last == false %}
+              ,
+              {% endif %}
+              {% endfor %}
+            </p>
+            <p class="venue">
+              <i class="fa-regular fa-calendar"></i>
+              <i>{{ post.venue }}</i>
+            </p>
+            {% if post.excerpt %}
+            <p class="excerpt">
+              {{ post.excerpt | markdownify }}
+            </p>
+            {% endif %}
+            {% if post.paperurl %}
+            <a class="url" href="{{ post.paperurl }}">
+              <i class="fa-regular fa-file-pdf"></i> Paper
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            {% endif %}
+            {% if post.codeurl %}
+            <a class="url" href="{{ post.codeurl }}">
+              <i class="fa-brands fa-github"></i> Code
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+</div>
